@@ -140,7 +140,7 @@ const SeeLikeDislikePosts = async(req,res)=>{
 
 const DeleteblogPosts = async(req,res)=>{
     try {
-        let post_data = await knex('blogPosts').where({UserId:req.UserData[0]['id']})
+        let post_data = await knex('blogPosts').where({UserId:req.UserData[0]['id'],id:req.body.PostsId})
         if(req.body.PostsId == post_data[0]['id']){
             await knex('blogPosts').where({id:req.body.PostsId}).del()
             await knex('LikeDislike').where({PostsId:req.body.PostsId}).del()
