@@ -29,7 +29,7 @@ const LoginBlogUser = async(req,res)=>{
         for(let Data of data){
             EmailPassword.push(Data['Email'])
             EmailPassword.push(Data['Password'])
-        }
+        }       
         if(EmailPassword.includes(Email)){
             if(EmailPassword.includes(Password)){
                 let Data2 = await knex('blogUser').where({Email:Email,Password:Password})
@@ -59,7 +59,7 @@ const CreateBlogPosts = async(req,res)=>{
 const SeeAllBlogPosts = async(req,res)=>{
     try {   
         let allposts = await knex('blogPosts');
-        let UserAccount = await knex('blogUser')
+        let UserAccount = await knex('blogUser');
         const Posts_Data = [];
         for(let UserData of allposts){
             for(let bUser of UserAccount){
@@ -87,7 +87,7 @@ const LikeDislikeBlogUser = async(req,res)=>{
                 res.json({message:'DisLike uploaded successfully...'})
             }
         }else{
-            let post_UserData = await knex('blogPosts').where({UserId:req.UserData[0]['id']})
+            let post_UserData = await knex('blogPosts').where({id:req.body['PostsId']})
             if(post_UserData != 0){
                 if(req.body.Like == true){
                     await knex('LikeDislike').insert({userId:req.UserData[0]['id'],PostsId:req.body['PostsId'],Like:req.body['Like']})
@@ -97,7 +97,7 @@ const LikeDislikeBlogUser = async(req,res)=>{
                     res.json({message:'DisLike uploaded successfully...'})
                 }
             }else{
-                res.json({message:'You can not like deleted post'})
+                res.json({message:"They havn't created any post"})
             }
         }
     } catch (error) {
