@@ -9,7 +9,7 @@ const CreateBlogUser = async(req,res)=>{
                 let UserAccount = await knex('blogUser').insert(req.body)
                 res.json({Account:UserAccount,mesg:'Account Created Successfully...'})
             }else{
-                res.json({message:'Please Choose a Strong Password , there should be lower and upper alphabets ,number and special charecter'})
+                res.json({message:'Please Choose a Strong Password , there should be lower and upper alphabets ,number and special charecter and length should be eight'})
             }
         }else{
             res.json({message:'Invalid Email'})
